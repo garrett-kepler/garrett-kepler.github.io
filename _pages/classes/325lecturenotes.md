@@ -4,6 +4,6 @@ title: "Math 325 Lecture Notes"
 permalink: /teaching/math325/lecturenotes
 author_profile: true
 ---
-<a href="/files/lecturenotes/M325LectureNotes.2.17.26.pdf"> Download Link </a>
+<a href="/files/lecturenotes/M325LectureNotes.3.4.26.pdf"> Download Link </a>
 
-<object data="../files/lecturenotes/M325LectureNotes.2.17.26.pdf" width="1000" height="1000" type='application/pdf'></object>
+<object data="../files/lecturenotes/M325LectureNotes.3.4.26.pdf" width="1000" height="1000" type='application/pdf'></object>
