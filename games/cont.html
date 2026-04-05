@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Law of Large Numbers (LLN): A Visualization</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      gap: 4px;
+      align-items: flex-start;
+    }
+    .controls {
+      width: 100px;
+    }
+    .chart-container {
+    }
+    button {
+      margin: 5px;
+      height: 60px;
+      width: 60px;
+      font-size: 12px;
+      background-color: white;
+      border-radius: 190px;
+      transition: all .2s;
+      text-align: center;
+    }
+
+  .effect2 {
+   &:hover {
+     box-shadow: 0px 0 0 0 #1f1f1f,  0px 0 0 10px rgb(219, 218, 218);
+   }
+
+   &:active {
+     box-shadow: 0px 0 0 11px #FFF, 0px 0 0 10px rgb(219, 218, 218);
+   }
+  }
+
+
+ 
+  </style>
+</head>
+<body>
+
+<h2>Law of Large Numbers (LLN): A Visualization</h2>
+<label>Number of options:</label>
+<input type="number" id="numOptions" min="0" max="10" value="5">
+<button onclick="generateButtons()", class="effect2">Create Options</button>
+
+<div id="buttons"></div>
+
+<p>Previous sample: <span id="lastPick">-</span></p>
+<p>Sample count: <span id="count">0</span></p>
+<p>Average: <span id="avg">0</span></p>
+
+
+<div class="container">
+
+  <div class="controls">
+    <button onclick="randomPick()" class="effect2">
+  Random Pick</button>
+<button onclick="startSimulation()" class="effect2">
+  Start Random</button>
+<button onclick="stopSimulation()" class="effect2">
+  Stop Random
+</button>
+<button onclick="reset()" class="effect2">
+  Reset Plot
+</button>
+  </div>
+
+  <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <canvas id="chart"></canvas>
+  </div>
+
+</div>
+<script>
+let total = 0;
+let count = 0;
+let data = [];
+let labels = [];
+let interval;
+
+const ctx = document.getElementById('chart').getContext('2d');
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Running Average',
+      data: data,
+      fill: false,
+      tension: .2,
+    }]
+  },
+  options: {
+    responsive: true
+  }
+});
+
+function selectValue(value) {
+  total += value;
+  count++;
+
+  let avg = total / count;
+
+  data.push(avg);
+  labels.push(count);
+
+  document.getElementById("avg").innerText = avg.toFixed(2);
+  document.getElementById("count").innerText = count;
+  document.getElementById("lastPick").innerText = value;
+
+  chart.update();
+}
+
+function generateButtons() {
+  const container = document.getElementById("buttons");
+  container.innerHTML = "";
+
+  const n = parseInt(document.getElementById("numOptions").value);
+  for (let i = 1; i <= n; i++) {
+    const btn = document.createElement("button");
+    btn.innerText = i;
+    btn.className = 'effect2';
+    btn.onclick = () => selectValue(i);
+
+    container.appendChild(btn);
+  }
+}
+
+function randomPick() {
+  let max = parseInt(document.getElementById("numOptions").value);
+  let value = Math.floor(Math.random() * max) + 1;
+
+  selectValue(value);
+}
+
+function startSimulation() {
+  if (!interval) {
+    interval = setInterval(randomPick, 200);
+  }
+}
+
+function stopSimulation() {
+  clearInterval(interval);
+  interval = null;
+}
+
+function reset() {
+  total = 0;
+  count = 0;
+  data.length = 0;
+  labels.length = 0;
+
+  document.getElementById("avg").innerText = 0;
+  document.getElementById("count").innerText = 0;
+  document.getElementById("lastPick").innerText = "-";
+
+  chart.update();
+}
+</script>
+</body>
+</html>
