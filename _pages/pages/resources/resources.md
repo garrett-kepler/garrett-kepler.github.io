@@ -18,7 +18,7 @@ There are lots of ways to intuit mathematics. One way that has been particularly
 ### <u>So... You Want to be a Gerrymanderer?</u>
 The idea of cleverly picking groups to advantage your own interests sounds like something straight out of a board game. To understand gerrymandering, it might be best to try it for yourself!
 
-<a href="https://garrett-kepler.github.io/resources/Gerrymanderer?/"> Click here to out-gerrymander an opponent</a>
+<a href="https://garrett-kepler.github.io/resources/gerry/"> Click here to out-gerrymander an opponent</a>
 
 ## Resources:
 
