@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz 1</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+        }
+
+        #exam {
+            display: none;
+        }
+
+        #logPanel {
+            margin-top: 30px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: none;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Math 300: Quiz 1</h1>
+
+<p>
+By entering your name, you agree to:
+<ol><li>Not use outside resources including LLMs, notes, internet, etc.</li>
+    <li>Remain in fullscreen mode while completing the assignment.</li>
+    </ol>
+</p>
+
+<input type="text" id="studentName">
+
+<button onclick="submitName()">
+    Submit ID
+</button>
+
+<br><br>
+
+<button
+    id="startBtn"
+    style="display:none;">
+    Start Assignment
+</button>
+
+
+<div id="exam">
+
+    <h2>Question 1</h2>
+
+    <p>
+        Explain how a breadth-first search differs from a depth-first search.
+    </p>
+
+    <textarea id="answer"></textarea>
+
+    <br><br>
+
+    <h2>Question 1</h2>
+
+    <p>
+        Explain how a breadth-first search differs from a depth-first search.
+    </p>
+
+    <textarea id="answer"></textarea>
+
+    <br><br>
+
+    <h2>Question 1</h2>
+
+    <p>
+        Explain how a breadth-first search differs from a depth-first search.
+    </p>
+
+    <textarea id="answer"></textarea>
+
+    <br><br>
+    <button onclick="submitExam()">
+        Submit Quiz
+    </button>
+
+</div>
+
+<div id="logPanel">
+    <h2>Violation Log</h2>
+    <ul id="logList"></ul>
+</div>
+
+<script>
+
+let studentName = "";
+
+function submitName() {
+
+    const name =
+        document.getElementById("studentName")
+        .value
+        .trim();
+
+    if (name === "") {
+
+        alert(
+            "Please enter your ID."
+        );
+
+        return;
+    }
+
+    studentName = name;
+
+    document.getElementById("startBtn")
+        .style.display = "inline-block";
+
+    document.getElementById("studentName")
+        .disabled = true;
+}
+
+let violations = [];
+
+function logViolation(type) {
+
+    violations.push(type);
+
+    console.log("Violation:", type);
+
+}
+
+document.getElementById("startBtn")
+.addEventListener("click", async () => {
+
+    document.getElementById("exam")
+        .style.display = "block";
+
+    document.getElementById("startBtn")
+        .style.display = "none";
+
+    try {
+
+        await document.documentElement
+            .requestFullscreen();
+
+    } catch(err) {
+
+        alert(
+            "Could not enter fullscreen mode."
+        );
+
+    }
+
+});
+
+document.addEventListener(
+    "fullscreenchange",
+    () => {
+
+        if (!document.fullscreenElement) {
+
+            logViolation(
+                "Exited Fullscreen"
+            );
+
+        }
+
+    }
+);
+
+window.addEventListener(
+    "blur",
+    () => {
+
+        logViolation(
+            "Window Lost Focus"
+        );
+
+    }
+);
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (document.hidden) {
+
+            logViolation(
+                "Tab Switch"
+            );
+
+        }
+
+    }
+);
+
+document.addEventListener(
+    "copy",
+    (e) => {
+
+        e.preventDefault();
+
+        logViolation(
+            "Copy Attempt"
+        );
+
+    }
+);
+
+document.addEventListener(
+    "cut",
+    (e) => {
+
+        e.preventDefault();
+
+        logViolation(
+            "Cut Attempt"
+        );
+
+    }
+);
+
+document.addEventListener(
+    "paste",
+    (e) => {
+
+        e.preventDefault();
+
+        logViolation(
+            "Paste Attempt"
+        );
+
+    }
+);
+
+document.addEventListener(
+    "contextmenu",
+    (e) => {
+
+        e.preventDefault();
+
+        logViolation(
+            "Right Click"
+        );
+
+    }
+);
+
+
+async function submitExam() {
+
+    await fetch("https://script.google.com/macros/s/AKfycbyQhnM3h2Vy_Cr3rGxjMNXvPg1PpoW2wQASNvcPuKOgf7rMyGKuen8X7gEdX8fSwoofoA/exec", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            student: studentName,
+            answer: document.getElementById("answer").value,
+            violations: violations
+        })
+    });
+
+    alert("Submitted!");
+}
+</script>
+
+</body>
+</html>
+
