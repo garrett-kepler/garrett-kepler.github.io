@@ -259,16 +259,15 @@ document.addEventListener(
 
 async function submitExam() {
 
-    await fetch("https://script.google.com/macros/s/AKfycbyQhnM3h2Vy_Cr3rGxjMNXvPg1PpoW2wQASNvcPuKOgf7rMyGKuen8X7gEdX8fSwoofoA/exec", {
+    const formData = new FormData();
+
+    formData.append("student", studentName);
+    formData.append("answer", document.getElementById("answer").value);
+    formData.append("violations", JSON.stringify(violations));
+
+    await fetch(https://script.google.com/macros/s/AKfycbyQhnM3h2Vy_Cr3rGxjMNXvPg1PpoW2wQASNvcPuKOgf7rMyGKuen8X7gEdX8fSwoofoA/exec, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            student: studentName,
-            answer: document.getElementById("answer").value,
-            violations: violations
-        })
+        body: formData
     });
 
     alert("Submitted!");
