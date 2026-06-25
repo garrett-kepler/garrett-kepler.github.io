@@ -1,93 +1,185 @@
 
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Quiz</title>
+<meta charset="UTF-8">
+<title>Secure Quiz</title>
 
 <style>
-
 body{
-    font-family:Arial;
+    font-family:Arial,sans-serif;
     margin:40px;
+    max-width:900px;
 }
 
 textarea{
     width:100%;
-    height:200px;
+    height:250px;
+    font-size:16px;
 }
 
+#quiz{
+    display:none;
+}
+
+#startBtn{
+    display:none;
+    margin-top:15px;
+}
+
+button{
+    padding:10px 20px;
+    font-size:16px;
+}
+
+input{
+    font-size:16px;
+    padding:8px;
+    width:300px;
+}
 </style>
 
 </head>
-
 <body>
 
-<h1>Quiz</h1>
+<h1>Programming Quiz</h1>
 
-Name
+<div id="login">
+    <h2 id="timer" style="color:red;">
+Time Remaining: 30:00
+</h2>
 
-<br>
+    <h3>Enter Your Name</h3>
 
-<input
-id="studentName"
-type="text">
+    <input
+        id="studentName"
+        type="text"
+        placeholder="Your name">
 
-<br><br>
+    <br><br>
 
-Question
+    <button onclick="submitName()">
+        Submit Name
+    </button>
 
-<br>
+    <br>
 
-<textarea
-id="answer"></textarea>
+    <button
+        id="startBtn"
+        onclick="startQuiz()">
+
+        Start Quiz
+
+    </button>
+
+</div>
+
+<div id="quiz">
+
+<h2>Question 1</h2>
+
+<p>
+Explain the difference between breadth-first search and depth-first search.
+</p>
+
+<textarea id="answer"></textarea>
 
 <br><br>
 
 <button onclick="submitExam()">
-
-Submit
-
+Submit Quiz
 </button>
 
+</div>
+
 <script>
+let timeRemaining = 30 * 60; 
+let timerInterval;
 
-let violations=[];
+let studentName = "";
+let violations = [];
 
-document.addEventListener(
-    "copy",
-    function(e){
+function logViolation(type){
 
-        e.preventDefault();
+    violations.push(type);
 
-        violations.push(
-            "Copy Attempt"
-        );
+    console.log(type);
 
-    });
+}
 
-document.addEventListener(
-    "paste",
-    function(e){
+function submitName(){
 
-        e.preventDefault();
+    const name =
+        document.getElementById("studentName")
+        .value
+        .trim();
 
-        violations.push(
-            "Paste Attempt"
-        );
+    if(name===""){
 
-    });
+        alert("Please enter your name.");
 
-window.addEventListener(
-    "blur",
-    function(){
+        return;
 
-        violations.push(
-            "Window Lost Focus"
-        );
+    }
 
-    });
+    studentName=name;
+
+    document.getElementById("studentName").disabled=true;
+
+    document.getElementById("startBtn").style.display="inline-block";
+
+}
+function startTimer(){
+
+    timerInterval = setInterval(function(){
+
+        timeRemaining--;
+
+        const minutes =
+            Math.floor(timeRemaining / 60);
+
+        const seconds =
+            timeRemaining % 60;
+
+        document.getElementById("timer").innerHTML =
+            "Time Remaining: " +
+            String(minutes).padStart(2,"0") +
+            ":" +
+            String(seconds).padStart(2,"0");
+
+        if(timeRemaining <= 0){
+
+            clearInterval(timerInterval);
+
+            alert("Time has expired.");
+
+            submitExam();
+
+        }
+
+    },1000);
+
+}
+async function startQuiz(){
+
+    document.getElementById("login").style.display="none";
+
+    document.getElementById("quiz").style.display="block";
+
+    try{
+
+        await document.documentElement.requestFullscreen();
+
+    }
+
+    catch(err){
+
+        alert("Fullscreen is required.");
+
+    }
+
+    startTimer();
+}
 
 document.addEventListener(
     "fullscreenchange",
@@ -95,34 +187,95 @@ document.addEventListener(
 
         if(!document.fullscreenElement){
 
-            violations.push(
-                "Exited Fullscreen"
-            );
+            logViolation("Exited Fullscreen");
 
         }
 
-    });
+    }
+);
+
+window.addEventListener(
+    "blur",
+    function(){
+
+        logViolation("Window Lost Focus");
+
+    }
+);
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(document.hidden){
+
+            logViolation("Tab Switch");
+
+        }
+
+    }
+);
+
+document.addEventListener(
+    "copy",
+    function(e){
+
+        e.preventDefault();
+
+        logViolation("Copy Attempt");
+
+    }
+);
+
+document.addEventListener(
+    "paste",
+    function(e){
+
+        e.preventDefault();
+
+        logViolation("Paste Attempt");
+
+    }
+);
+
+document.addEventListener(
+    "cut",
+    function(e){
+
+        e.preventDefault();
+
+        logViolation("Cut Attempt");
+
+    }
+);
+
+document.addEventListener(
+    "contextmenu",
+    function(e){
+
+        e.preventDefault();
+
+        logViolation("Right Click");
+
+    }
+);
 
 async function submitExam(){
 
     const url =
-"https://script.google.com/macros/s/AKfycbyQhnM3h2Vy_Cr3rGxjMNXvPg1PpoW2wQASNvcPuKOgf7rMyGKuen8X7gEdX8fSwoofoA/exec";
+    "https://script.google.com/macros/s/AKfycbyQhnM3h2Vy_Cr3rGxjMNXvPg1PpoW2wQASNvcPuKOgf7rMyGKuen8X7gEdX8fSwoofoA/exec";
 
     const params =
         new URLSearchParams();
 
     params.append(
         "student",
-        document.getElementById(
-            "studentName"
-        ).value
+        studentName
     );
 
     params.append(
         "answer",
-        document.getElementById(
-            "answer"
-        ).value
+        document.getElementById("answer").value
     );
 
     params.append(
@@ -134,17 +287,16 @@ async function submitExam(){
 
         const response =
             await fetch(url,{
-
                 method:"POST",
-
                 body:params
-
             });
 
         const text =
             await response.text();
 
-        alert(text);
+        alert("Quiz Submitted!");
+
+        console.log(text);
 
     }
 
@@ -152,17 +304,15 @@ async function submitExam(){
 
         console.error(err);
 
-        alert(
-            "Submission Failed"
-        );
+        alert("Submission Failed");
 
     }
+    
+    clearInterval(timerInterval);
 
 }
 
 </script>
 
 </body>
-
 </html>
-
