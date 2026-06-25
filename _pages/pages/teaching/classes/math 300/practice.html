@@ -1,279 +1,168 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Quiz 1</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
+<title>Quiz</title>
 
-        textarea {
-            width: 100%;
-            height: 250px;
-        }
+<style>
 
-        #exam {
-            display: none;
-        }
+body{
+    font-family:Arial;
+    margin:40px;
+}
 
-        #logPanel {
-            margin-top: 30px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            display: none;
-        }
+textarea{
+    width:100%;
+    height:200px;
+}
 
-        li {
-            margin-bottom: 5px;
-        }
-    </style>
+</style>
+
 </head>
 
 <body>
 
-<h1>Math 300: Quiz 1</h1>
+<h1>Quiz</h1>
 
-<p>
-By entering your name, you agree to:
-<ol><li>Not use outside resources including LLMs, notes, internet, etc.</li>
-    <li>Remain in fullscreen mode while completing the assignment.</li>
-    </ol>
-</p>
+Name
 
-<input type="text" id="studentName">
+<br>
 
-<button onclick="submitName()">
-    Submit ID
-</button>
+<input
+id="studentName"
+type="text">
 
 <br><br>
 
-<button
-    id="startBtn"
-    style="display:none;">
-    Start Assignment
+Question
+
+<br>
+
+<textarea
+id="answer"></textarea>
+
+<br><br>
+
+<button onclick="submitExam()">
+
+Submit
+
 </button>
-
-
-<div id="exam">
-
-    <h2>Question 1</h2>
-
-    <p>
-        Explain how a breadth-first search differs from a depth-first search.
-    </p>
-
-    <textarea id="answer"></textarea>
-
-    <br><br>
-
-    <h2>Question 1</h2>
-
-    <p>
-        Explain how a breadth-first search differs from a depth-first search.
-    </p>
-
-    <textarea id="answer"></textarea>
-
-    <br><br>
-
-    <h2>Question 1</h2>
-
-    <p>
-        Explain how a breadth-first search differs from a depth-first search.
-    </p>
-
-    <textarea id="answer"></textarea>
-
-    <br><br>
-    <button onclick="submitExam()">
-        Submit Quiz
-    </button>
-
-</div>
-
-<div id="logPanel">
-    <h2>Violation Log</h2>
-    <ul id="logList"></ul>
-</div>
 
 <script>
 
-let studentName = "";
+let violations=[];
 
-function submitName() {
+document.addEventListener(
+    "copy",
+    function(e){
 
-    const name =
-        document.getElementById("studentName")
-        .value
-        .trim();
+        e.preventDefault();
 
-    if (name === "") {
-
-        alert(
-            "Please enter your ID."
+        violations.push(
+            "Copy Attempt"
         );
 
-        return;
-    }
+    });
 
-    studentName = name;
+document.addEventListener(
+    "paste",
+    function(e){
 
-    document.getElementById("startBtn")
-        .style.display = "inline-block";
+        e.preventDefault();
 
-    document.getElementById("studentName")
-        .disabled = true;
-}
-
-let violations = [];
-
-function logViolation(type) {
-
-    violations.push(type);
-
-    console.log("Violation:", type);
-
-}
-
-document.getElementById("startBtn")
-.addEventListener("click", async () => {
-
-    document.getElementById("exam")
-        .style.display = "block";
-
-    document.getElementById("startBtn")
-        .style.display = "none";
-
-    try {
-
-        await document.documentElement
-            .requestFullscreen();
-
-    } catch(err) {
-
-        alert(
-            "Could not enter fullscreen mode."
+        violations.push(
+            "Paste Attempt"
         );
 
-    }
+    });
 
-});
+window.addEventListener(
+    "blur",
+    function(){
+
+        violations.push(
+            "Window Lost Focus"
+        );
+
+    });
 
 document.addEventListener(
     "fullscreenchange",
-    () => {
+    function(){
 
-        if (!document.fullscreenElement) {
+        if(!document.fullscreenElement){
 
-            logViolation(
+            violations.push(
                 "Exited Fullscreen"
             );
 
         }
 
-    }
-);
-
-window.addEventListener(
-    "blur",
-    () => {
-
-        logViolation(
-            "Window Lost Focus"
-        );
-
-    }
-);
-
-document.addEventListener(
-    "visibilitychange",
-    () => {
-
-        if (document.hidden) {
-
-            logViolation(
-                "Tab Switch"
-            );
-
-        }
-
-    }
-);
-
-document.addEventListener(
-    "copy",
-    (e) => {
-
-        e.preventDefault();
-
-        logViolation(
-            "Copy Attempt"
-        );
-
-    }
-);
-
-document.addEventListener(
-    "cut",
-    (e) => {
-
-        e.preventDefault();
-
-        logViolation(
-            "Cut Attempt"
-        );
-
-    }
-);
-
-document.addEventListener(
-    "paste",
-    (e) => {
-
-        e.preventDefault();
-
-        logViolation(
-            "Paste Attempt"
-        );
-
-    }
-);
-
-document.addEventListener(
-    "contextmenu",
-    (e) => {
-
-        e.preventDefault();
-
-        logViolation(
-            "Right Click"
-        );
-
-    }
-);
-
-
-async function submitExam() {
-
-    const formData = new FormData();
-
-    formData.append("student", studentName);
-    formData.append("answer", document.getElementById("answer").value);
-    formData.append("violations", JSON.stringify(violations));
-
-    await fetch(https://script.google.com/macros/s/AKfycbyQhnM3h2Vy_Cr3rGxjMNXvPg1PpoW2wQASNvcPuKOgf7rMyGKuen8X7gEdX8fSwoofoA/exec, {
-        method: "POST",
-        body: formData
     });
 
-    alert("Submitted!");
+async function submitExam(){
+
+    const url =
+"https://script.google.com/macros/s/AKfycbyQhnM3h2Vy_Cr3rGxjMNXvPg1PpoW2wQASNvcPuKOgf7rMyGKuen8X7gEdX8fSwoofoA/exec";
+
+    const params =
+        new URLSearchParams();
+
+    params.append(
+        "student",
+        document.getElementById(
+            "studentName"
+        ).value
+    );
+
+    params.append(
+        "answer",
+        document.getElementById(
+            "answer"
+        ).value
+    );
+
+    params.append(
+        "violations",
+        violations.join(", ")
+    );
+
+    try{
+
+        const response =
+            await fetch(url,{
+
+                method:"POST",
+
+                body:params
+
+            });
+
+        const text =
+            await response.text();
+
+        alert(text);
+
+    }
+
+    catch(err){
+
+        console.error(err);
+
+        alert(
+            "Submission Failed"
+        );
+
+    }
+
 }
+
 </script>
 
 </body>
+
 </html>
 
