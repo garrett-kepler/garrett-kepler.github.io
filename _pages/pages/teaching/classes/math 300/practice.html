@@ -42,24 +42,24 @@ input{
 </head>
 <body>
 
-<h1>Programming Quiz</h1>
+<h1>Quiz 1</h1>
 
 <div id="login">
-    <h2 id="timer" style="color:red;">
-Time Remaining: 30:00
-</h2>
-
-    <h3>Enter Your Name</h3>
-
+        <h3>By entering in your initials:</h3>
+        <ol>
+            <li>You agree not to use outside resources including notes, LLMs, the internet, etc.</li>
+            <li>You agree to remain in full screen while you complete the exam.</li>
+        </ol>
+<br><br>
     <input
         id="studentName"
         type="text"
-        placeholder="Your name">
+        placeholder="Your initials">
 
     <br><br>
 
     <button onclick="submitName()">
-        Submit Name
+        Submit
     </button>
 
     <br>
@@ -75,16 +75,119 @@ Time Remaining: 30:00
 </div>
 
 <div id="quiz">
-
+<h2 id="timer" style="color:black;">
+Time Remaining: 30:00
+</h2>
 <h2>Question 1</h2>
 
 <p>
-Explain the difference between breadth-first search and depth-first search.
+Consider the following line of code:
+    <pre><code>
+        print( 6**2 == 72/2 )
+    </code></pre>
+    What will the output be?
 </p>
 
-<textarea id="answer"></textarea>
+<textarea id="q1"></textarea>
 
-<br><br>
+<h2>Question 2</h2>
+
+<p>
+Consider the following line of code:
+    <pre><code>
+        (10**2 - 10) % 9
+    </code></pre>
+    What will the output be?
+</p>
+
+<textarea id="q2"></textarea>
+
+<h2>Question 3</h2>
+
+<p>
+Consider the following line of code:
+    <pre><code>
+        (1, 2, 3, 4, 5, 6)[4]
+    </code></pre>
+    What will the output be?
+</p>
+
+<textarea id="q3"></textarea>
+
+<h2>Question 4</h2>
+
+<p>
+Consider the following line of code:
+    <pre><code>
+        (1, 2, 3, 4, 5, 6)[1:5:2]
+    </code></pre>
+    What will the output be?
+</p>
+
+<textarea id="q4"></textarea>
+
+<h2>Question 5</h2>
+
+<p>
+Consider the following block of code:
+    <pre><code>
+        container = []
+        for i in range(6):
+            container.append(6 - i)
+        print(container)
+    </code></pre>
+    What type of object is <code>container</code>? 
+    
+    Write out the output of <code>print(container)</code>.
+</p>
+
+<textarea id="q5"></textarea>
+
+<h2>Question 6</h2>
+
+<p>
+Give an example of a string.
+</p>
+
+<textarea id="q6"></textarea>
+
+<h2>Question 7</h2>
+
+<p>
+What is the difference between a float and an integer?
+</p>
+
+<textarea id="q7"></textarea>
+
+<h2>Question 8</h2>
+
+<p>
+I want to define a function that takes a number as an input and outputs the sum of squared numbers less than the input number.
+        For example, if I input the value 5, I want the function to output 30 (since 30 = 1<sup>2</sup>+2<sup>2</sup>+3<sup>2</sup>+4<sup>2</sup>).
+        What I made was the following block of code. 
+        <pre><code>
+            def squares(maximum):
+                container = []
+                for i in range( maximum ):
+                    container.append(i)
+
+                container2 = []
+                for j in container:
+                    container2.append( j**2 )
+                
+                container3 = 0
+                for k in container2:
+                    container3 += k
+                
+                return container3
+        </code></pre>
+
+        In words, describe how to make this function shorter (that is, less lines of code).
+</p>
+
+<textarea id="q8"></textarea>
+
+
 
 <button onclick="submitExam()">
 Submit Quiz
@@ -116,7 +219,7 @@ function submitName(){
 
     if(name===""){
 
-        alert("Please enter your name.");
+        alert("Please enter your initials.");
 
         return;
 
@@ -274,8 +377,36 @@ async function submitExam(){
     );
 
     params.append(
-        "answer",
-        document.getElementById("answer").value
+        "q1",
+        document.getElementById("q1").value
+    );
+    params.append(
+        "q2",
+        document.getElementById("q2").value
+    );
+    params.append(
+        "q3",
+        document.getElementById("q3").value
+    );
+    params.append(
+        "q4",
+        document.getElementById("q4").value
+    );
+    params.append(
+        "q5",
+        document.getElementById("q5").value
+    );
+    params.append(
+        "q6",
+        document.getElementById("q6").value
+    );
+    params.append(
+        "q7",
+        document.getElementById("q7").value
+    );
+    params.append(
+        "q8",
+        document.getElementById("q8").value
     );
 
     params.append(
@@ -307,7 +438,7 @@ async function submitExam(){
         alert("Submission Failed");
 
     }
-    
+
     clearInterval(timerInterval);
 
 }
