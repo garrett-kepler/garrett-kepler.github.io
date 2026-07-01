@@ -7,4 +7,4 @@ redirect_from:
   - /resume
 ---
 
-<object data="../pages/CV.7.1.26.pdf" width="1000" height="1000" type='application/pdf'></object>
+<object data="../pages/cv/CV.7.1.26.pdf" width="1000" height="1000" type='application/pdf'></object>
