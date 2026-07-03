@@ -42,7 +42,7 @@ input{
 </head>
 <body>
 
-<h1>Quiz 2</h1>
+<h1>Quiz 1</h1>
 
 <div id="login">
         <h3>By entering in your initials:</h3>
@@ -81,7 +81,11 @@ Time Remaining: 30:00
 <h2>Question 1</h2>
 
 <p>
-What is the main difference between the library `sympy` and the library `numpy`?
+Consider the following line of code:
+    <pre><code>
+        print( 6**2 == 72/2 )
+    </code></pre>
+    What will the output be?
 </p>
 
 <textarea id="q1"></textarea>
@@ -89,29 +93,23 @@ What is the main difference between the library `sympy` and the library `numpy`?
 <h2>Question 2</h2>
 
 <p>
-Given an $n$-element list `contlist= = [1, 2, 3, ..., n-1, n]` and a function `rewrite()` defined as:
-
-<pre><code>
-    def rewrite(inputlist):
-        rewrittenlist = []
-        for i in inputlist:
-            for j in inputlist:
-                rewrittenlist.append( (i,j) )
-        return rewrittenlist
-</code></pre>
-
+Consider the following line of code:
+    <pre><code>
+        (10**2 - 10) % 9
+    </code></pre>
+    What will the output be?
 </p>
 
-<ol>
-    <li>What is the maximum number of operations that could occur when running `rewrite(contlist)`?</li>
-    <li>What is the time complexity of the `rewrite` function?</li>
-</ol>
 <textarea id="q2"></textarea>
 
 <h2>Question 3</h2>
 
 <p>
-How is a numpy array different from a python list?
+Consider the following line of code:
+    <pre><code>
+        (1, 2, 3, 4, 5, 6)[4]
+    </code></pre>
+    What will the output be?
 </p>
 
 <textarea id="q3"></textarea>
@@ -119,18 +117,75 @@ How is a numpy array different from a python list?
 <h2>Question 4</h2>
 
 <p>
-Consider the following lines of code:
-<pre><code>
-    contlist = [1, 2, 3, 4]
-    contarray = numpy.array(contlist)
-
-    print(2 * contlist)
-    print(2 * contarray)
+Consider the following line of code:
+    <pre><code>
+        (1, 2, 3, 4, 5, 6)[1:5:2]
     </code></pre>
+    What will the output be?
 </p>
-How will the output of the two print statements differ? Explain why.
 
 <textarea id="q4"></textarea>
+
+<h2>Question 5</h2>
+
+<p>
+Consider the following block of code:
+    <pre><code>
+        container = []
+        for i in range(6):
+            container.append(6 - i)
+        print(container)
+    </code></pre>
+    What type of object is <code>container</code>? 
+    
+    Write out the output of <code>print(container)</code>.
+</p>
+
+<textarea id="q5"></textarea>
+
+<h2>Question 6</h2>
+
+<p>
+Give an example of a string.
+</p>
+
+<textarea id="q6"></textarea>
+
+<h2>Question 7</h2>
+
+<p>
+What is the difference between a float and an integer?
+</p>
+
+<textarea id="q7"></textarea>
+
+<h2>Question 8</h2>
+
+<p>
+I want to define a function that takes a number as an input and outputs the sum of squared numbers less than the input number.
+        For example, if I input the value 5, I want the function to output 30 (since 30 = 1<sup>2</sup>+2<sup>2</sup>+3<sup>2</sup>+4<sup>2</sup>).
+        What I made was the following block of code. 
+        <pre><code>
+            def squares(maximum):
+                container = []
+                for i in range( maximum ):
+                    container.append(i)
+
+                container2 = []
+                for j in container:
+                    container2.append( j**2 )
+                
+                container3 = 0
+                for k in container2:
+                    container3 += k
+                
+                return container3
+        </code></pre>
+
+        In words, describe how to make this function shorter (that is, less lines of code).
+</p>
+
+<textarea id="q8"></textarea>
 
 
 
@@ -337,7 +392,22 @@ async function submitExam(){
         "q4",
         document.getElementById("q4").value
     );
-    
+    params.append(
+        "q5",
+        document.getElementById("q5").value
+    );
+    params.append(
+        "q6",
+        document.getElementById("q6").value
+    );
+    params.append(
+        "q7",
+        document.getElementById("q7").value
+    );
+    params.append(
+        "q8",
+        document.getElementById("q8").value
+    );
 
     params.append(
         "violations",
