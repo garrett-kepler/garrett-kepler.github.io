@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "Math 325 Lecture Notes"
-permalink: /teaching/math 325/
+permalink: /math 325/
 author_profile: true
 ---
 
