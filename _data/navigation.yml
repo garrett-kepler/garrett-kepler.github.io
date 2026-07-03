@@ -18,6 +18,7 @@ main:
     url: /teaching/    
     
   - title: "CV"
-    url: /cv/
+    url: ./files/CV.7.1.26.pdf
+    
   - title: "Resources"
     url: /resources/
