@@ -7,7 +7,6 @@ author_profile: true
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Centering & Variation</title>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -72,7 +71,7 @@ from a beta distribution. (If plot doesn't appear, try reloading page!)
 
 </div>
 <div id="plot", style="display: flex;
-justify-content: center; width:90%; height:60%"></div>
+justify-content: left; display-items: center; margin-left: 10%; width:80%; height:60%"></div>
 
 <h2>Measures of Variation</h2>
 <p>
@@ -83,10 +82,7 @@ we can define these three statistics as follows:
 
 $$
 \begin{align*}
-MAD(x)&=\frac{\sum\limits_{i=1}^n|x_i-\bar{x}|}{n}\\
-
-var(x)&=\frac{\sum\limits_{i=1}^n(x_i-\bar{x} )^2}{n-1}\\
-s(x)&=\sqrt{var(x)}
+MAD(x)=\frac{\sum\limits_{i=1}^n|x_i-\bar{x}|}{n}~~~~var(x)=\frac{\sum\limits_{i=1}^n(x_i-\bar{x} )^2}{n-1}~~~~s(x)&=\sqrt{var(x)}
 \end{align*}
 $$
 
@@ -104,8 +100,8 @@ quantities in action, here is the normal distribution with mean 0:
 <br><br>
 
 </div>
-<div id="plot1", style="display: flex;
-justify-content: center; width:90%; height:60%"></div>
+<div id="plot1", style="display: flex; margin-left: 10%;
+justify-content: left; display-items: center; width:80%; height:60%"></div>
 
 <script>
 
