@@ -18,7 +18,8 @@ The idea of cleverly picking groups to advantage your own interests sounds like 
 
 ## <u> Centering & Variation </u>
 
-We care what values a dataset takes on. As a summary of that information, we often see what the data is surrounded and how spread out the data is from there. 
+We care what values a dataset takes on. As a summary of that information, we often see what the data is surrounded and how spread out the data is from there.
+ 
 <a href="https://garrett-kepler.github.io/resources/centering/"> Click here for a fun tool</a>
 
 ## Resources:
