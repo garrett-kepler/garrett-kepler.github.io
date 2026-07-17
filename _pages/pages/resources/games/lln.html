@@ -57,13 +57,13 @@ author_profile: true
 Try generating some random numbers uniformly yourself or clicking 'Start Random' to automatically generate uniformly. What we expect is that the average will <i>eventually</i> converge to the mean.
 </p>
 <label>Number of options:</label>
-<input type="number" id="numOptions" min="0" max="10" value="5">
+<input type="number" id="numOptions" min="0" max="10" value="5" style="width: 50px">
 <button onclick="generateButtons()", class="effect2">Create Options</button>
 
 <div id="buttons"></div>
-<div class="container">
+<div class="container" style="position: relative; align-items: center; height:60vh; width:80vw">
 
-  <div class="controls" style="position: relative; height:8vh; width:60vw">
+  <div class="controls">
     <button onclick="randomPick()" class="effect2">
   Random Pick</button>
 <button onclick="startSimulation()" class="effect2">
@@ -76,7 +76,7 @@ Try generating some random numbers uniformly yourself or clicking 'Start Random'
 </button>
   </div>
 
-  <div class="chart-container" style="position: relative; height:30vh; width:80vw">
+  <div class="chart-container" style = "height:70%; width:100%">
     <canvas id="chart"></canvas>
   </div>
 <p>Previous sample: <span id="lastPick">-</span> Sample count: <span id="count">0</span> Average: <span id="avg">0</span></p>
