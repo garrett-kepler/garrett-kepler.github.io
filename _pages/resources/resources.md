@@ -16,7 +16,7 @@ The idea of cleverly picking groups to advantage your own interests sounds like 
 
 <a href="https://garrett-kepler.github.io/resources/gerry/"> Click here to out-gerrymander an opponent</a>
 
-## <u> Centering & Variation </u>
+### <u> Centering & Variation </u>
 
 We care what values a dataset takes on. As a summary of that information, we often see what the data is surrounded and how spread out the data is from there.
  
