@@ -7,7 +7,7 @@ redirect_from:
 title: About Me
 ---
 
-Hello! I am currently a PhD candidate in Mathematics at Washington State University (department homepage: <a href=" https://math.wsu.edu/ "> here</a>). My research focuses are generall![alt text](image.png) spectral graph theory, redistricting, combinatorics, and data science.
+Hello! I am currently a PhD candidate in Mathematics at Washington State University (department homepage: <a href=" https://math.wsu.edu/ "> here</a>). My research focuses are generally spectral graph theory, redistricting, combinatorics, and data science.
 
 I received my Master's in Statistics from WSU as well as a Bachelor of Science in Mathematics with a minor in Physics from California State University East Bay (department homepage: <a href=" https://www.csueastbay.edu/math/ "> here</a>).
 
